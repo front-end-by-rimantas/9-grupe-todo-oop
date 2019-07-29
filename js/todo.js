@@ -18,7 +18,7 @@ class TodoClass {
                                 <div class="task-list">task list...</div>
                             </div>`;
         this.HTML_empty = `<div class="empty">Sorry, no tasks</div>`;
-        this.HTML_task = `<div class="task-item">
+        this.HTML_task = `<div class="task-item" data-task-id="{{id}}">
                             <header>
                                 <h3>#{{id}}</h3>
                                 <span class="btn edit">Edit</span>
@@ -60,18 +60,37 @@ class TodoClass {
         this.textarea.value = '';
     }
 
+    deleteTask = ( event ) => {
+        const id = event.path[2].dataset.taskId;
+        this.tasks = this.tasks.filter( task => task.id !== id );
+
+
+        console.log( this.tasks );
+        console.log( this.tasks.filter( task => task.id !== id ) );
+        
+
+        this.renderTasks();
+    }
+
     renderTasks = () => {
         if ( this.tasks.length === 0 ) {
             this.taskListElement.innerHTML = this.HTML_empty;
         } else {
-            let full_temp_HTML = '',
-                task_temp_HTML = '';
-            this.tasks.forEach( task => {
-                task_temp_HTML = this.HTML_task;
-                full_temp_HTML += task_temp_HTML.replace('{{id}}', task.id)
-                                                .replace('{{text}}', task.text);
-            });
-            this.taskListElement.innerHTML = full_temp_HTML;
+            // issivalome HTML, kai atsiranda pirmas task'as
+            if ( this.tasks.length === 1 ) {
+                this.taskListElement.innerHTML = '';
+            }
+            // naujas elementas
+            let task_temp_HTML = this.HTML_task;
+            task_temp_HTML = task_temp_HTML.replace('{{id}}', this.nextId - 1)
+                                            .replace('{{id}}', this.nextId - 1)
+                                            .replace('{{text}}', this.textarea.value);
+            // esamas.push(naujas)
+            this.taskListElement.insertAdjacentHTML('beforeend', task_temp_HTML);
+
+            // naujam sukurtam task'ui uzdedame event listener'ius
+            this.target.querySelector(`.task-item[data-task-id="${this.nextId - 1}"] .delete`)
+                        .addEventListener('click', this.deleteTask)
         }
     }
 

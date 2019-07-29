@@ -1,0 +1,110 @@
+.tasker {
+  display: inline-block;
+  width: 100%;
+  padding: 20px;
+}
+
+.tasker h2 {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tasker > form {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.tasker > form textarea {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: none;
+  height: 80px;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.tasker > form .btn {
+  display: inline-block;
+  float: left;
+  margin-right: 20px;
+  padding: 10px 20px;
+  line-height: 20px;
+  font-size: 16px;
+  -webkit-box-shadow: 0 2px 4px #CCC;
+          box-shadow: 0 2px 4px #CCC;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tasker > form .btn:hover {
+  background-color: red;
+  color: #FFF;
+}
+
+.tasker > form .save {
+  background-color: green;
+  color: #FFF;
+}
+
+.tasker > form .save:hover {
+  background-color: green;
+}
+
+.tasker .task-list {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.tasker .task-list .empty {
+  display: inline-block;
+  width: 100%;
+  padding: 20px 40px;
+  background-color: #ffd6d6;
+  text-align: center;
+  border: 2px dashed red;
+}
+
+.tasker .task-item {
+  display: inline-block;
+  width: 100%;
+  border: 1px solid #CCC;
+  border-radius: 8px;
+}
+
+.tasker .task-item header {
+  display: inline-block;
+  width: 100%;
+  background-color: #DDD;
+  padding: 5px 10px;
+}
+
+.tasker .task-item header h3 {
+  display: inline-block;
+  float: left;
+}
+
+.tasker .task-item header .btn {
+  display: inline-block;
+  float: right;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.tasker .task-item header .btn:hover {
+  text-decoration: underline;
+}
+
+.tasker .task-item section {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+}
+
+.tasker .task-item + .task-item {
+  margin-top: 20px;
+}

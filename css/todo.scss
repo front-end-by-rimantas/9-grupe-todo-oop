@@ -1,0 +1,109 @@
+.tasker {
+    display: inline-block;
+    width: 100%;
+    padding: 20px;
+
+    h2 {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    > form {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 40px;
+
+        textarea {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            resize: none;
+            height: 80px;
+            line-height: 20px;
+            font-size: 16px;
+        }
+
+        .btn {
+            display: inline-block;
+            float: left;
+            margin-right: 20px;
+            padding: 10px 20px;
+            line-height: 20px;
+            font-size: 16px;
+            box-shadow: 0 2px 4px #CCC;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: red;
+                color: #FFF;
+            }
+        }
+
+        .save {
+            background-color: green;
+            color: #FFF;
+
+            &:hover {
+                background-color: green;
+            }
+        }
+    }
+
+    .task-list {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 40px;
+
+        .empty {
+            display: inline-block;
+            width: 100%;
+            padding: 20px 40px;
+            background-color: rgb(255, 214, 214);
+            text-align: center;
+            border: 2px dashed red;
+        }
+    }
+
+    .task-item {
+        display: inline-block;
+        width: 100%;
+        border: 1px solid #CCC;
+        border-radius: 8px;
+
+        header {
+            display: inline-block;
+            width: 100%;
+            background-color: #DDD;
+            padding: 5px 10px;
+
+            h3 {
+                display: inline-block;
+                float: left;
+            }
+
+            .btn {
+                display: inline-block;
+                float: right;
+                margin-left: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        section {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+        }
+
+        + .task-item {
+            margin-top: 20px;
+        }
+    }
+}

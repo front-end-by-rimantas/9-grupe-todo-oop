@@ -3,29 +3,28 @@
 class TodoClass {
     constructor ( target ) {
         this.target = document.querySelector(target);
+        this.nextId = 1;
         this.textarea;
         this.taskListElement;
         this.tasks = [];
 
-        this.HTML_template = `<div>
+        this.HTML_template = `<div class="tasker">
                                 <h2>Tasku sarasas</h2>
                                 <form>
                                     <textarea></textarea>
-                                    <div class="save">Save</div>
-                                    <div class="cancel">Cancel</div>
+                                    <div class="btn save">Save</div>
+                                    <div class="btn cancel">Cancel</div>
                                 </form>
                                 <div class="task-list">task list...</div>
                             </div>`;
         this.HTML_empty = `<div class="empty">Sorry, no tasks</div>`;
         this.HTML_task = `<div class="task-item">
                             <header>
-                                <h3>Task #</h3>
-                                <span class="edit">Edit</span>
-                                <span class="delete">Delete</span>
+                                <h3>#{{id}}</h3>
+                                <span class="btn edit">Edit</span>
+                                <span class="btn delete">Delete</span>
                             </header>
-                            <section>
-                                Task text
-                            </section>
+                            <section>{{text}}</section>
                         </div>`;
 
         this.init();
@@ -45,23 +44,34 @@ class TodoClass {
 
     addTask = () => {
         const text = this.textarea.value;
-        this.tasks.push( text );
+        if ( text === '' ) {
+            return;
+        }
+        this.tasks.push( {
+            id: this.nextId,
+            text: text
+        } );
+        this.nextId++;
+        
         this.renderTasks();
     }
 
     cancelTask = () => {
-        console.log('canceling new task...');
+        this.textarea.value = '';
     }
 
     renderTasks = () => {
         if ( this.tasks.length === 0 ) {
             this.taskListElement.innerHTML = this.HTML_empty;
         } else {
-            let temp_HTML = '';
+            let full_temp_HTML = '',
+                task_temp_HTML = '';
             this.tasks.forEach( task => {
-                temp_HTML += this.HTML_task;
+                task_temp_HTML = this.HTML_task;
+                full_temp_HTML += task_temp_HTML.replace('{{id}}', task.id)
+                                                .replace('{{text}}', task.text);
             });
-            this.taskListElement.innerHTML = temp_HTML;
+            this.taskListElement.innerHTML = full_temp_HTML;
         }
     }
 

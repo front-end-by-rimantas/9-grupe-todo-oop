@@ -64,6 +64,8 @@ class TodoClass {
                 option.classList.remove('active');
             }
         });
+
+        this.renderTasks();
     }
 
     addTask = () => {
@@ -97,15 +99,30 @@ class TodoClass {
         } else {
             // issivalome HTML, kai atsiranda pirmas task'as
             let full_HTML = '',
-                task_HTML = '';
+                task_HTML = '',
+                tasksToRender = this.tasks;
+            
+            switch ( this.filter ) {
+                case 'done':
+                    tasksToRender = tasksToRender.filter( task => task.done === true );
+                    break;
 
-            this.tasks.forEach( task => {
-                task_HTML = this.HTML_task;
-                task_HTML = task_HTML.replace('{{id}}', task.id)
-                                    .replace('{{id}}', task.id)
-                                    .replace('{{text}}', task.text);
-                full_HTML += task_HTML;
-            });
+                case 'in-progress':
+                    tasksToRender = tasksToRender.filter( task => task.done === false );
+                    break;
+
+                case 'all':
+                    // nieko nekeiciam, gerai kaip yra
+                    break;
+            }
+
+            tasksToRender.forEach( task => {
+                            task_HTML = this.HTML_task;
+                            task_HTML = task_HTML.replace('{{id}}', task.id)
+                                                .replace('{{id}}', task.id)
+                                                .replace('{{text}}', task.text);
+                            full_HTML += task_HTML;
+                        });
 
             // update task list html
             this.taskListElement.innerHTML = full_HTML;

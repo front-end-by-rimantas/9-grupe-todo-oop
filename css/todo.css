@@ -93,6 +93,7 @@
   width: 100%;
   border: 1px solid #CCC;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .tasker .task-item header {
@@ -121,6 +122,15 @@
 
 .tasker .task-item header .btn:hover {
   text-decoration: underline;
+}
+
+.tasker .task-item.archived header {
+  background-color: green;
+  color: #FFF;
+}
+
+.tasker .task-item.archived .btn {
+  display: none;
 }
 
 .tasker .task-item section {

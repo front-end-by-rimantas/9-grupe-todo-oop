@@ -8,7 +8,7 @@ class TodoClass {
         this.textarea;
         this.taskListElement;
         this.tasks = [];
-        this.filter = 'in progress';       // all, done, in progress
+        this.filter = 'in-progress';       // all, done, in-progress
 
         this.HTML_template = `<div class="tasker">
                                 <h2>Tasku sarasas</h2>
@@ -51,12 +51,24 @@ class TodoClass {
         this.filtersHTML.forEach( option => {
             option.addEventListener('click', this.updateFilter)
         });
+        
+        if ( localStorage.getItem('nextId') ) {
+            this.nextId = JSON.parse( localStorage.getItem('nextId') );
+        }
+        if ( localStorage.getItem('tasks') ) {
+            this.tasks = JSON.parse( localStorage.getItem('tasks') );
+        }
+
         this.renderTasks();
+    }
+
+    saveToLocalStorage = () => {
+        localStorage.setItem('tasks', JSON.stringify( this.tasks ));
+        localStorage.setItem('nextId', JSON.stringify( this.nextId ));
     }
 
     updateFilter = ( event ) => {
         this.filter = event.target.dataset.filter;
-
         this.filtersHTML.forEach( option => {
             if ( option.dataset.filter === this.filter ) {
                 option.classList.add('active');
@@ -79,7 +91,8 @@ class TodoClass {
             done: false
         } );
         this.nextId++;
-        
+
+        this.saveToLocalStorage();
         this.renderTasks();
     }
 
@@ -88,8 +101,25 @@ class TodoClass {
     }
 
     deleteTask = ( event ) => {
-        const id = parseInt(event.path[2].dataset.taskId);        
+        const id = parseInt(event.path[2].dataset.taskId);
         this.tasks = this.tasks.filter( task => task.id !== id );
+
+        this.saveToLocalStorage();
+        this.renderTasks();
+    }
+
+    archiveTask = ( event ) => {
+        const id = parseInt(event.path[2].dataset.taskId);
+        
+        this.tasks = this.tasks.map( task => {
+            // if ( task.id === id ) {
+            //     task.done = true;
+            // }
+            // return task;
+            return task.id === id ? {...task, done: true} : task;
+        });
+        
+        this.saveToLocalStorage();
         this.renderTasks();
     }
 
@@ -129,22 +159,19 @@ class TodoClass {
 
             // select all tasks and add event listeners
             this.target.querySelectorAll('.task-list .task-item').forEach( task => {
-                task.querySelector('.delete').addEventListener('click', this.deleteTask);
+                const taskID = parseInt(task.dataset.taskId);
+                const taskStatus = this.tasks.filter( t => t.id === taskID )[0].done;
+                
+                if ( taskStatus ) {
+                    // speliam mygtukus: archive, delete, edit
+                    task.classList.add('archived');
+                } else {
+                    task.querySelector('.delete').addEventListener('click', this.deleteTask);
+                    task.querySelector('.done').addEventListener('click', this.archiveTask);
+                }
             });
         }
     }
-
-
-    // Todo list objektas
-
-    // vidine atmintis
-    // vidiniai metodai
-        // prideti
-        // redaguoti
-        // istrinti
-    // todo HTML generavimas
 }
-
-
 
 export default TodoClass;

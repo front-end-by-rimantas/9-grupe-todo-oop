@@ -92,6 +92,7 @@
         width: 100%;
         border: 1px solid #CCC;
         border-radius: 8px;
+        overflow: hidden;
 
         header {
             display: inline-block;
@@ -118,6 +119,17 @@
                 &:hover {
                     text-decoration: underline;
                 }
+            }
+        }
+
+        &.archived {
+            header {
+                background-color: green;
+                color: #FFF;
+            }
+
+            .btn {
+                display: none;
             }
         }
 

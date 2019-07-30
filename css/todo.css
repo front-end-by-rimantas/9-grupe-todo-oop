@@ -54,6 +54,25 @@
   background-color: green;
 }
 
+.tasker .filter {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.tasker .filter > .option {
+  display: inline-block;
+  margin-right: 15px;
+  line-height: 20px;
+  font-size: 13px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.tasker .filter > .option:hover, .tasker .filter > .option.active {
+  background-color: #CCC;
+}
+
 .tasker .task-list {
   display: inline-block;
   width: 100%;
@@ -93,6 +112,11 @@
   float: right;
   margin-left: 10px;
   cursor: pointer;
+}
+
+.tasker .task-item header .btn.done {
+  float: left;
+  margin-left: 30px;
 }
 
 .tasker .task-item header .btn:hover {
